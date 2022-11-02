@@ -83,18 +83,19 @@ fn main() {
         .display();
 }
 
-fn calculate_height(time: f64, initial_speed: f64, coefficient: f64, mass: f64) -> f64 {
+fn calculate_height(time: f64, initial_speed: f64, air_resistance_coefficient: f64, mass: f64) -> f64 {
+    //println!("{time}");
     // returns height
-    if coefficient == 0.0 {
+    if air_resistance_coefficient == 0.0 {
         initial_speed * time - GRAVITY * time * time / 2.0
     } else {
-        mass / coefficient
+        mass / air_resistance_coefficient
             * f64::ln(
                 f64::cos(
-                    f64::atan(coefficient * (f64::sqrt(coefficient / (mass * GRAVITY))))
-                        - time * (f64::sqrt(GRAVITY * coefficient / mass)),
+                    f64::atan(air_resistance_coefficient * (f64::sqrt(air_resistance_coefficient / (mass * GRAVITY))))
+                        - time * (f64::sqrt(GRAVITY * air_resistance_coefficient / mass)),
                 ) / f64::cos(f64::atan(
-                    coefficient * (f64::sqrt(coefficient / (mass * GRAVITY))),
+                    air_resistance_coefficient * (f64::sqrt(air_resistance_coefficient / (mass * GRAVITY))),
                 )),
             )
     }
